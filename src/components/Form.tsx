@@ -1,18 +1,21 @@
 import { ChangeEvent, useState, FormEvent, Dispatch } from "react";
 import { Activity } from "../types";
 import { categories } from "../data/categories.ts";
+import { ActivityActions } from "../reducers/activity-reducer.ts";
 
 type FormProps = {
     dispatch: Dispatch<ActivityActions>
 }
 
-export default function Form(){
+const initialState = {
+    category: 0,
+    name: '',
+    calories: 0
+}
 
-    const [activity, setActivity] = useState<Activity>({
-        category: 0,
-        name: '',
-        calories: 0
-    })
+export default function Form({dispatch}: FormProps){
+
+    const [activity, setActivity] = useState<Activity>(initialState)
 
     //Se encarga de manejar los cambios en el formulario
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +36,15 @@ export default function Form(){
     //Se encarga de manejar el envio del formulario
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        
+
+        dispatch({
+            type: 'save-activity',
+            payload: {
+                newActivity: activity
+            }
+        })
+
+        setActivity(initialState)
     }
 
     return (
