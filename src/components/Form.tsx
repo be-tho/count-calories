@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, FormEvent } from "react";
 import { Activity } from "../types";
 import { categories } from "../data/categories.ts";
 
@@ -10,6 +10,7 @@ export default function Form(){
         calories: 0
     })
 
+    //Se encarga de manejar los cambios en el formulario
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
         const isNumberField = ['category', 'calories'].includes(e.target.id)
 
@@ -19,13 +20,23 @@ export default function Form(){
         })
     }
 
+    //Valida los datos del formulario
     const isValidActivity = () => {
         const { name, calories } = activity
         return name.trim() !== '' && calories > 0
     }
 
+    //Se encarga de manejar el envio del formulario
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        
+    }
+
     return (
-        <form className="space-y-5 bg-white rounded-lg shadow p-10">
+        <form 
+        className="space-y-5 bg-white rounded-lg shadow p-10"
+        onSubmit={handleSubmit}
+        >
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="category" className="font-bold">Categoría:</label>
                 <select
@@ -68,7 +79,7 @@ export default function Form(){
             </div>
             <input type="submit"
                className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-lg w-full cursor-pointer disabled:opacity-30"
-               value="Guardar Comida o Actividad"
+               value={activity.category === 1 ? "Guardar Comida" : "Guardar Actividad"}
                    disabled={!isValidActivity()}
             />
         </form>
