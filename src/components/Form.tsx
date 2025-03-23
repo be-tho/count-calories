@@ -32,6 +32,7 @@ export default function Form({dispatch, state}: FormProps){
     const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
         const isNumberField = ['category', 'calories'].includes(e.target.id)
 
+        //Si el campo es un numero, se convierte a numero
         setActivity({
             ...activity,
             [e.target.id]: isNumberField ? +e.target.value : e.target.value
