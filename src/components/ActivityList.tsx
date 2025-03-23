@@ -35,6 +35,7 @@ export default function ActivityList({activities, dispatch} : ActivityListProps)
                         <PencilSquareIcon className="w-6 h-6 text-slate-800 cursor-pointer" />
                     </button>
                     <button
+                        onClick={() => dispatch({type: 'delete-activity', payload: {activeId: activity.id}})}
                     >
                         <TrashIcon className="w-6 h-6 text-slate-800 cursor-pointer" />
                     </button>
