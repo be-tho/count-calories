@@ -12,21 +12,5 @@ export const categories : Category[] = [
     {
         id: 2,
         name: "Ejercicio",
-    },
-    {
-        id: 3,
-        name: "Ensalada",
-    },
-    {
-        id: 4,
-        name: "Pesas",
-    },
-    {
-        id: 5,
-        name: "Bicicleta",
-    },
-    {
-        id: 6,
-        name: "Juego de Naranja",
-    },
+    }
 ]
