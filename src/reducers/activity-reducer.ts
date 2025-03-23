@@ -4,7 +4,8 @@ import { Activity } from "../types"
 export type ActivityActions = 
     { type : 'save-activity', payload: {newActivity : Activity} } |
     { type : 'set-active-id', payload: {activeId : Activity['id']} } |
-    {type : 'delete-activity', payload: {activeId : Activity['id']}}
+    {type : 'delete-activity', payload: {activeId : Activity['id']}} |
+    {type : 'restart-activities'}
 
 export type ActivityState = {
     activities: Activity[],
@@ -26,7 +27,7 @@ export const activityReducer = (
     action: ActivityActions
 ) => {
 
-
+    //Se encarga de guardar una actividad
     if(action.type === 'save-activity'){
         let updatedActivities : Activity[] = []
         if(state.activeId){
@@ -42,6 +43,7 @@ export const activityReducer = (
         }
     }
 
+    //Se encarga de setear el id de la actividad activa
     if(action.type === 'set-active-id'){
         return {
             ...state,
@@ -49,10 +51,19 @@ export const activityReducer = (
         }
     }
 
+    //Se encarga de eliminar una actividad
     if(action.type === 'delete-activity'){
         return {
             ...state,
             activities: state.activities.filter(activity => activity.id !== action.payload.activeId)
+        }
+    }
+
+    //Se encarga de reiniciar las actividades
+    if(action.type === 'restart-activities'){
+        return {
+            activities: [],
+            activeId: ''
         }
     }
 
